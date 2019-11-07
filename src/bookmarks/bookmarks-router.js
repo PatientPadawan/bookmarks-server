@@ -80,15 +80,16 @@ bkmarkRouter
     .route('/bookmarks/:bookmark_id')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
-        BookmarksService.getById(knexInstance, req.params.bookmark_id)
+        const { bookmark_id } = req.params
+        BookmarksService.getById(knexInstance, bookmark_id)
         .then(bookmark => {
-            if (!bookmark) {
-                logger.error(`Bookmark with id ${id} not found.`);
-                return res
-                    .status(404)
-                    .send('Bookmark not found')
-            }
-            res.json(bookmark)
+          if (!bookmark) {
+            logger.error(`Bookmark with id ${bookmark_id} not found.`)
+            return res.status(404).json({
+              error: { message: `Bookmark Not Found` }
+            })
+          }
+          res.json(bookmark)
         })
         .catch(next)
     })

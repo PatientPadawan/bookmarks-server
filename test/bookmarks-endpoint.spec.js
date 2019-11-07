@@ -86,9 +86,9 @@ describe('Bookmark Endpoints', function() {
         })
     })
     
-    describe.only(`GET /bookmarks/:bookmark_id`, () => {
+    describe(`GET /bookmarks/:bookmark_id`, () => {
         context(`Given no bookmarks`, () => {
-            it(`responds with 404`, () => {
+            it.skip(`responds with 404`, () => {
                 const bookmarkId = 123
                 return supertest(app)
                     .get(`/bookmarks/${bookmarkId}`)
