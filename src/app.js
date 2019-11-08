@@ -18,7 +18,11 @@ app.use(cors())
 
 app.use(validateBearerToken)
 
-app.use(bkmarkRouter)
+app.use('/api/bookmarks', bkmarkRouter)
+
+app.get('/', (req, res) => {
+    res.send('Hi there!')
+})
 
 app.use(errorHandler)
 
