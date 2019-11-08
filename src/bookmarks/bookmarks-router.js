@@ -116,14 +116,16 @@ bkmarkRouter
                     }
                 })
         }
-
-        if (rating &&
-            (!Number.isInteger(rating) || rating < 0 || rating > 5)) {
-                logger.error(`Invalid rating '${rating}' supplied`);
+        
+        if (rating) {
+            const numRating = parseFloat(rating)
+            if (!Number.isInteger(numRating) || numRating < 0 || numRating > 5) {
+                logger.error(`Invalid rating '${numRating}' supplied`);
                 return res
                     .status(400)
                     .send({error: {message: `'rating' must be a number between 0 and 5`}
                 })
+            }
         }
 
         BookmarksService.updateBookmark(
